@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Web Assignment</title>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<!-- <link rel="stylesheet" href="style.css"> -->
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand">Web Assignment</a>
+	</nav>
+	<div class="container mt-2 accordion" style="position: relative;" id="collapseRoot">
+		<div class="card">
+			<div id="companyContactHeader" class="container-fluid d-inline-flex justify-content-between card-header">
+				<h2 class="mb-0">
+					<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#companyContactContent" aria-expanded="true" aria-controls="companyContactContent">
+						Static Query: 100 Company Contact
+					</button>
+				</h2>
+				<button class="btn btn-primary" onclick="getCompanyContact()">Run</button>
+			</div>
+			<div id="companyContactContent" class="collapse show" aria-labelledby="companyContactHeader" data-parent="#collapseRoot">
+				<div id="companyContact" class="card-body">
+					<em>No results yet, try clicking run...</em>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div id="companyInsertHeader" class="container-fluid d-inline-flex card-header">
+				<h2 class="mb-0">
+					<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#companyInsertContent" aria-expanded="true" aria-controls="companyInsertContent">
+						Insert Company
+					</button>
+				</h2>
+			</div>
+			<div id="companyInsertContent" class="collapse show" aria-labelledby="companyInsertHeader" data-parent="#collapseRoot">
+				<form id="insertForm" class="card-body">
+					<div class="form-group row">
+						<label for="companyFormName" class="col-sm-2 col-form-label">Name</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="companyFormName" aria-describedby="nameHelp" placeholder="Company Name here" required>
+							<small id="nameHelp" class="form-text text-muted">Name for the company</small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="companyFormHomePage" class="col-sm-2 col-form-label">Home Page</label>
+						<div class="col-sm-10">
+							<input type="url" class="form-control" id="companyFormHomePage" aria-describedby="homePageHelp" placeholder="https://..." required>
+							<small id="homePageHelp" class="form-text text-muted">Website home page</small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="companyFormCategoryCode" class="col-sm-2 col-form-label">Category Code</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="companyFormCategoryCode" aria-describedby="categoryCodeHelp" placeholder="enterprise" required>
+							<small id="categoryCodeHelp" class="form-text text-muted">The type of company code</small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="companyFormEmail" class="col-sm-2 col-form-label">Email Address</label>
+						<div class="col-sm-10">
+							<input type="email" class="form-control" id="companyFormEmail" aria-describedby="emailHelp" placeholder="company@place.org" required>
+							<small id="emailHelp" class="form-text text-muted">Main contact email for the company</small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="companyFormPhoneNumber" class="col-sm-2 col-form-label">Phone Number</label>
+						<div class="col-sm-10">
+							<input type="tel" class="form-control" id="companyFormPhoneNumber" aria-describedby="phoneHelp" placeholder="123.456.7890" required>
+							<small id="phoneHelp" class="form-text text-muted">Main contact phone number for the company</small>
+						</div>
+					</div>
+
+					<button class="btn btn-primary" type="submit" onclick="createCompany()">Submit</button>
+				</form>
+			</div>
+			<div class="card">
+				<div id="companyDynamicHeader" class="container-fluid card-header">
+					<h2 class="mb-0">
+						<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#companyDynamicContent" aria-expanded="true" aria-controls="companyDynamicContent">
+							Dynamic Query: Search by field
+						</button>
+					</h2>
+				</div>
+				<div id="companyDynamicContent" class="collapse show" aria-labelledby="companyContactHeader" data-parent="#collapseRoot">
+					<div id="companyContact" class="card-body">
+						<form id="searchForm">
+							<div class="form-group row">
+								<div class="input-group mb-3 col">
+									<div class="dropdown input-group-prepend">
+										<select class="custom-select" id="fieldSelect">
+											<option value="INVALID" selected>Choose Field...</option>
+											<option value="name">Name</option>
+											<option value="homepage_url">Homepage URL</option>
+											<option value="category_code">Category Code</option>
+											<option value="email_address">Email</option>
+											<option value="phone_number">Phone Number</option>
+										</select>
+									</div>
+									<input type="text" class="form-control" id="searchText" placeholder="Search text" required>
+									<div class="input-group-append">
+										<button class="btn btn-outline-success" type="button" onclick="searchCompany()">Search</button>
+									</div>
+								</div>
+							</div>
+						</form>
+						<div id="searchResults" class="overflow-auto">
+							<em>No results yet, try searching for something...</em>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<template id="tableTemplate">
+		<table class="table fade-in">
+			<thead class="thead-dark">
+				<tr></tr>
+			</thead>
+			<tbody>
+				<!-- Content inserted here -->
+			</tbody>
+		</table>
+	</template>
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="index.js"></script>
+</html>
