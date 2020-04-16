@@ -1,0 +1,8 @@
+FROM mongo:4.1.8-xenial
+
+RUN apt-get update && apt-get install -y wget
+
+RUN mkdir -p /data/db && \
+	wget -O /data/db/companies.json http://cs457.cs.ua.edu/2017F/companies.json && \
+	mongod --dbpath /data/db --fork --logpath /data/db/mongod.log && \
+	mongoimport --db db --type json --file /data/db/companies.json --collection HW6
