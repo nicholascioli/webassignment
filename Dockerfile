@@ -11,6 +11,7 @@ USER node
 RUN npm install
 
 COPY --chown=node:node . .
+RUN dos2unix ./wait-for.sh
 
 EXPOSE 8080
 
