@@ -2,31 +2,28 @@
 
 This project should be automatically pulled from the supplied `Dockerfile` on Blackboard.
 
-## How to run
+## Building
 
-This repo requires Docker. To build:
+To build, run the following:
 
-`docker-compose build`
+```bash
+npm install # or yarn
+```
 
-To run:
+## Running
 
-`docker-compose up -d`
-
-To run with logs:
-
-`docker-compose up`
-
-The app will now be viewable on `http://localhost:3000`.
+Run `node server.js` to start the server. The web interface can be accessed at
+`http://localhost:3000`.
 
 ## Published Routes
 
 The exposed routes are as follows:
 
-| Method | Route                             | Action                                                                   |
-| ------ | --------------------------------- | ------------------------------------------------------------------------ |
-| GET    | /api/company/contact              | Gets at most 100 companies' contact info                                 |
-| POST   | /api/company/new                  | Inserts a new company into the DB                                        |
-| DELETE | /api/company/:id                  | Deletes the company with the specified ID                                |
+| Method | Route                             | Action                                    |
+| ------ | --------------------------------- | ----------------------------------------- |
+| GET    | /api/company/contact              | Gets at most 100 companies' contact info  |
+| POST   | /api/company/new                  | Inserts a new company into the DB         |
+| DELETE | /api/company/:id                  | Deletes the company with the specified ID |
 | GET    | /api/company/search/:field/:value | Searches for a company using the field and its value. Value can be empty |
 
 ## What you need to change
